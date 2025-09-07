@@ -1,0 +1,347 @@
+/**
+ * Uforest green Theme for XNAT - Color-only modifications
+ * Preserves existing XNAT styling while applying theme-specific colors
+ */
+
+/* =============================================================================
+   THEME COLOR VARIABLES
+   ============================================================================= */
+
+:root {
+    /* Primary theme colors */
+    --theme-primary: #228B22;
+    --theme-secondary: #006400; 
+    --theme-accent: #32CD32;
+    --theme-background: #f0fff0;
+    --theme-border: rgba(34,139,34,0.2);
+    --theme-text: #006400;
+    
+    /* XNAT CSS Variable Overrides */
+    --XNAT-blue-500: #228B22 !important;
+    --XNAT-blue-600: #006400 !important;
+    --XNAT-blue-300: #32CD32 !important;
+    --XNAT-gray-050: #f0fff0 !important;
+    --XNAT-gray-100: #f0fff0 !important;
+    --XNAT-gray-300: rgba(34,139,34,0.2) !important;
+    --link-color: #228B22 !important;
+    --link-color-hover: #006400 !important;
+    --primary-button-bg: #228B22 !important;
+    --primary-button-border: #006400 !important;
+    --default-border: rgba(34,139,34,0.2) !important;
+    --text-color: #006400 !important;
+}
+
+/* =============================================================================
+   GLOBAL BACKGROUND AND TEXT COLORS
+   ============================================================================= */
+
+body,
+.xnat-bootstrap,
+.yui-skin-sam {
+    background-color: var(--theme-background) !important;
+    color: var(--theme-text) !important;
+}
+
+/* Only target key content areas to preserve existing styling */
+.panel-body,
+.content,
+.main-content,
+.page-content,
+.modal-body,
+.tab-pane {
+    background-color: var(--theme-background) !important;
+    color: var(--theme-text) !important;
+}
+
+/* Specific overrides for main content areas only */
+.container,
+.container-fluid,
+.panel-body {
+    background-color: var(--theme-background) !important;
+    color: var(--theme-text) !important;
+}
+
+/* Override any inline white backgrounds */
+*[style*="background-color: white"],
+*[style*="background-color: #fff"],
+*[style*="background-color: #ffffff"],
+*[style*="background: white"],
+*[style*="background: #fff"],
+*[style*="background: #ffffff"] {
+    background-color: var(--theme-background) !important;
+    color: var(--theme-text) !important;
+}
+
+/* =============================================================================
+   XNAT HEADER AND NAVIGATION COLORS
+   ============================================================================= */
+
+/* Main header */
+#header,
+.xnat-nav.navbar {
+    background-color: var(--theme-primary) !important;
+    border-color: var(--theme-secondary) !important;
+}
+
+#header a,
+.xnat-nav.navbar a {
+    color: white !important;
+}
+
+#header a:hover,
+.xnat-nav.navbar a:hover {
+    color: var(--theme-accent) !important;
+}
+
+/* =============================================================================
+   XNAT ADMIN TABS AND NAVIGATION COLORS
+   ============================================================================= */
+
+.xnat-nav-tabs li.tab {
+    border-color: var(--theme-border) !important;
+}
+
+.xnat-nav-tabs li.tab.active {
+    background-color: var(--theme-primary) !important;
+    border-color: var(--theme-secondary) !important;
+}
+
+.xnat-nav-tabs li.tab.active > a {
+    color: var(--theme-text) !important;
+}
+
+.xnat-nav-tabs li.tab > a {
+    color: var(--theme-text) !important;
+}
+
+.xnat-nav-tabs.top li.tab.active > a {
+    border-top-color: var(--theme-primary) !important;
+}
+
+.xnat-nav-tabs.side li.tab.active > a {
+    border-left-color: var(--theme-primary) !important;
+}
+
+/* =============================================================================
+   PANEL AND CONTENT COLORS
+   ============================================================================= */
+
+.panel-default .panel-heading {
+    background-color: var(--theme-primary) !important;
+    border-color: var(--theme-secondary) !important;
+    color: white !important;
+}
+
+.panel-default {
+    border-color: var(--theme-border) !important;
+    background-color: var(--theme-background) !important;
+}
+
+.panel-default .panel-body {
+    background-color: var(--theme-background) !important;
+    color: var(--theme-text) !important;
+}
+
+.panel-default .panel-footer {
+    background-color: var(--theme-background) !important;
+    border-color: var(--theme-border) !important;
+    color: var(--theme-text) !important;
+}
+
+/* =============================================================================
+   BUTTON COLORS
+   ============================================================================= */
+
+.btn-primary,
+button.btn-primary {
+    background-color: var(--theme-primary) !important;
+    border-color: var(--theme-secondary) !important;
+    color: white !important;
+}
+
+.btn-primary:hover,
+button.btn-primary:hover {
+    background-color: var(--theme-secondary) !important;
+    border-color: var(--theme-secondary) !important;
+}
+
+/* Bootstrap button overrides */
+.xnat-bootstrap .btn-primary {
+    background: var(--theme-primary) !important;
+    border-color: var(--theme-secondary) !important;
+}
+
+.xnat-bootstrap .btn-primary:hover {
+    background: var(--theme-secondary) !important;
+}
+
+/* =============================================================================
+   LINK COLORS
+   ============================================================================= */
+
+a,
+a:visited {
+    color: var(--theme-primary) !important;
+}
+
+a:hover,
+a:active {
+    color: var(--theme-secondary) !important;
+}
+
+.xnat-bootstrap a,
+.xnat-bootstrap a:visited {
+    color: var(--theme-primary) !important;
+}
+
+.xnat-bootstrap a:hover,
+.xnat-bootstrap a:active {
+    color: var(--theme-secondary) !important;
+}
+
+/* =============================================================================
+   FORM AND INPUT COLORS
+   ============================================================================= */
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--theme-primary) !important;
+    box-shadow: 0 0 0 0.2rem var(--theme-border) !important;
+}
+
+/* =============================================================================
+   YUI FRAMEWORK COLORS
+   ============================================================================= */
+
+/* YUI Navigation Sets */
+.yui-navset .yui-nav li.selected a,
+.yui-navset .yui-nav li.selected a:focus,
+.yui-navset .yui-nav li.selected a:hover {
+    background-color: var(--theme-primary) !important;
+    color: white !important;
+}
+
+.yui-navset .yui-nav li a {
+    color: var(--theme-text) !important;
+}
+
+.yui-navset .yui-nav li a:hover {
+    background-color: var(--theme-background) !important;
+    color: var(--theme-primary) !important;
+}
+
+/* YUI Data Tables */
+.yui-dt table {
+    border-color: var(--theme-border) !important;
+}
+
+.yui-dt-odd {
+    background-color: var(--theme-background) !important;
+}
+
+.yui-dt th,
+.yui-dt thead th {
+    background-color: var(--theme-primary) !important;
+    color: white !important;
+    border-color: var(--theme-secondary) !important;
+}
+
+.yui-dt-selected {
+    background-color: var(--theme-accent) !important;
+}
+
+/* YUI Dialogs */
+.yui-panel .hd {
+    background-color: var(--theme-primary) !important;
+    color: white !important;
+}
+
+.yui-dialog .ft {
+    background-color: var(--theme-background) !important;
+    border-color: var(--theme-border) !important;
+}
+
+/* YUI Menus */
+.yuimenubar {
+    background-color: var(--theme-primary) !important;
+}
+
+.yuimenubaritem {
+    color: white !important;
+}
+
+.yuimenubaritem:hover {
+    background-color: var(--theme-secondary) !important;
+}
+
+/* =============================================================================
+   ALERT AND MESSAGE COLORS
+   ============================================================================= */
+
+.alert-info,
+.xnat-bootstrap .alert-info {
+    background-color: var(--theme-background) !important;
+    border-color: var(--theme-border) !important;
+    color: var(--theme-text) !important;
+}
+
+/* =============================================================================
+   TABLE AND DATA DISPLAY COLORS
+   ============================================================================= */
+
+th {
+    background-color: var(--theme-primary) !important;
+    color: white !important;
+    border-color: var(--theme-secondary) !important;
+}
+
+tr:nth-child(even) {
+    background-color: var(--theme-background) !important;
+}
+
+tr:hover {
+    background-color: var(--theme-accent) !important;
+}
+
+/* =============================================================================
+   PAGINATION COLORS
+   ============================================================================= */
+
+.pagination .page-item.active .page-link {
+    background-color: var(--theme-primary) !important;
+    border-color: var(--theme-primary) !important;
+}
+
+.xnat-bootstrap .pagination {
+    border-bottom-color: var(--theme-primary) !important;
+}
+
+/* =============================================================================
+   BORDER AND ACCENT COLORS
+   ============================================================================= */
+
+.xnat-tab-content {
+    border-color: var(--theme-border) !important;
+}
+
+.xnat-tab-content.side.pull-right {
+    border-color: var(--theme-border) !important;
+}
+
+hr {
+    border-color: var(--theme-border) !important;
+}
+
+/* =============================================================================
+   FOCUS AND INTERACTION STATES
+   ============================================================================= */
+
+*:focus {
+    outline-color: var(--theme-primary) !important;
+}
+
+.panel .panel-element.highlighted {
+    background-color: var(--theme-background) !important;
+    border-color: var(--theme-border) !important;
+}

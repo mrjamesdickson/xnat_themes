@@ -16,7 +16,7 @@ get_theme_colors() {
         "forest-green") echo "primary:#228B22 secondary:#006400 accent:#32CD32 background:#f0fff0 border:rgba(34,139,34,0.2) text:#006400" ;;
         "sunset-orange") echo "primary:#FF6347 secondary:#CC4125 accent:#FF7F50 background:#fff8f0 border:rgba(255,99,71,0.2) text:#CC4125" ;;
         "royal-purple") echo "primary:#6A0DAD secondary:#4B0082 accent:#9370DB background:#f8f0ff border:rgba(106,13,173,0.2) text:#4B0082" ;;
-        "midnight-dark") echo "primary:#2C3E50 secondary:#1A252F accent:#34495E background:#f5f5f5 border:rgba(44,62,80,0.2) text:#1A252F" ;;
+        "midnight-dark") echo "primary:#4a5568 secondary:#2d3748 accent:#68d391 background:#1a1a1a border:rgba(255,255,255,0.1) text:#e2e8f0" ;;
         "coral-reef") echo "primary:#FF7F7F secondary:#E55555 accent:#FFA07A background:#fff5f5 border:rgba(255,127,127,0.2) text:#E55555" ;;
         "arctic-frost") echo "primary:#87CEEB secondary:#4682B4 accent:#B0E0E6 background:#f0f8ff border:rgba(135,206,235,0.2) text:#4682B4" ;;
         "golden-wheat") echo "primary:#DAA520 secondary:#B8860B accent:#FFD700 background:#fffdf0 border:rgba(218,165,32,0.2) text:#B8860B" ;;
@@ -87,6 +87,47 @@ update_theme_colors() {
 }
 
 /* =============================================================================
+   GLOBAL BACKGROUND AND TEXT COLORS
+   ============================================================================= */
+
+body,
+.xnat-bootstrap,
+.yui-skin-sam {
+    background-color: var(--theme-background) !important;
+    color: var(--theme-text) !important;
+}
+
+/* Only target key content areas to preserve existing styling */
+.panel-body,
+.content,
+.main-content,
+.page-content,
+.modal-body,
+.tab-pane {
+    background-color: var(--theme-background) !important;
+    color: var(--theme-text) !important;
+}
+
+/* Specific overrides for main content areas only */
+.container,
+.container-fluid,
+.panel-body {
+    background-color: var(--theme-background) !important;
+    color: var(--theme-text) !important;
+}
+
+/* Override any inline white backgrounds */
+*[style*="background-color: white"],
+*[style*="background-color: #fff"],
+*[style*="background-color: #ffffff"],
+*[style*="background: white"],
+*[style*="background: #fff"],
+*[style*="background: #ffffff"] {
+    background-color: var(--theme-background) !important;
+    color: var(--theme-text) !important;
+}
+
+/* =============================================================================
    XNAT HEADER AND NAVIGATION COLORS
    ============================================================================= */
 
@@ -148,11 +189,18 @@ update_theme_colors() {
 
 .panel-default {
     border-color: var(--theme-border) !important;
+    background-color: var(--theme-background) !important;
+}
+
+.panel-default .panel-body {
+    background-color: var(--theme-background) !important;
+    color: var(--theme-text) !important;
 }
 
 .panel-default .panel-footer {
     background-color: var(--theme-background) !important;
     border-color: var(--theme-border) !important;
+    color: var(--theme-text) !important;
 }
 
 /* =============================================================================
@@ -354,15 +402,89 @@ hr {
 }
 TEMPLATE
 
+    # Capitalize first letter of theme name
+    local theme_title=$(echo "$theme_name" | sed 's/^./\U&/' | sed 's/-/ /')
+    
     # Replace placeholders with actual colors
-    sed -e "s/THEME_NAME/${theme_name^}/g" \
+    sed -e "s/THEME_NAME/$theme_title/g" \
         -e "s/PRIMARY_COLOR/$primary/g" \
         -e "s/SECONDARY_COLOR/$secondary/g" \
         -e "s/ACCENT_COLOR/$accent/g" \
         -e "s/BACKGROUND_COLOR/$background/g" \
-        -e "s/BORDER_COLOR/$border/g" \
+        -e "s|BORDER_COLOR|$border|g" \
         -e "s/TEXT_COLOR/$text/g" \
         "$template_file" > "$css_file"
+    
+    # Add extra aggressive overrides for dark themes
+    if [[ "$theme_name" == "midnight-dark" ]]; then
+        cat >> "$css_file" << 'DARK_THEME_EXTRA'
+
+/* =============================================================================
+   AGGRESSIVE DARK THEME OVERRIDES
+   ============================================================================= */
+
+/* Conservative dark theme overrides - preserve gradients and styling */
+body,
+.content,
+.main-content,
+.page-content {
+    background-color: var(--theme-background) !important;
+    color: var(--theme-text) !important;
+}
+
+/* Restore necessary white elements */
+.btn-primary,
+button.btn-primary,
+.xnat-nav-tabs li.tab.active > a,
+.panel-default .panel-heading,
+.yui-panel .hd,
+.yui-navset .yui-nav li.selected a,
+.yuimenubar,
+th,
+.yui-dt th,
+.yui-dt thead th {
+    color: white !important;
+}
+
+/* Conservative header styling - preserve gradients */
+#header a,
+.xnat-nav.navbar a,
+.navbar a,
+.navbar-nav > li > a {
+    color: var(--theme-text) !important;
+}
+
+#header a:hover,
+.xnat-nav.navbar a:hover,
+.navbar a:hover,
+.navbar-nav > li > a:hover {
+    color: var(--theme-accent) !important;
+}
+
+/* Keep button and interactive element backgrounds */
+.btn-primary,
+button.btn-primary {
+    background-color: var(--theme-primary) !important;
+}
+
+.xnat-nav-tabs li.tab.active {
+    background-color: var(--theme-primary) !important;
+}
+
+/* Text inputs need lighter background for visibility */
+input[type="text"],
+input[type="email"], 
+input[type="password"],
+input[type="search"],
+textarea,
+select {
+    background-color: #2d2d2d !important;
+    color: var(--theme-text) !important;
+    border-color: var(--theme-border) !important;
+}
+
+DARK_THEME_EXTRA
+    fi
     
     # Clean up temp file
     rm "$template_file"
