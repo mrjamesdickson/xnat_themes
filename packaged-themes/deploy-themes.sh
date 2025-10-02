@@ -65,7 +65,7 @@ print_info "Uploading theme package..."
 
 UPLOAD_RESPONSE=$(curl -s -u "$USERNAME:$PASSWORD" \
     -X POST \
-    -F "file=@$ZIP_FILE" \
+    -F "themePackage=@$ZIP_FILE;type=application/zip" \
     "$XNAT_URL/xapi/themes" \
     -w "HTTP_STATUS:%{http_code}")
 

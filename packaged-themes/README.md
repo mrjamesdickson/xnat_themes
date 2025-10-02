@@ -22,9 +22,20 @@ This package contains 10 custom XNAT themes ready for deployment to your XNAT in
 
 ## Installation Methods
 
-### Method 1: Automatic Deployment (Recommended)
+### Method 1: Batch Upload All Themes (Recommended)
 
-Use the provided deployment script:
+Upload all 10 themes at once using the batch upload script:
+
+```bash
+# Upload all themes to your XNAT instance
+./upload-all-themes.sh https://your-xnat.org admin
+```
+
+This will upload all theme packages. You can then activate any theme through the web interface or use Method 2 below.
+
+### Method 2: Single Theme Deployment
+
+Deploy and activate a specific theme:
 
 ```bash
 # Deploy a specific theme
@@ -34,7 +45,7 @@ Use the provided deployment script:
 ./deploy-themes.sh https://your-xnat.org admin
 ```
 
-### Method 2: Manual Upload via Web Interface
+### Method 3: Manual Upload via Web Interface
 
 1. Log into your XNAT as an administrator
 2. Navigate to **Administer** > **Site Administration** > **Plugin Settings** > **Themes**
@@ -43,7 +54,7 @@ Use the provided deployment script:
 5. Click **Upload**
 6. Once uploaded, click **Activate** next to your theme
 
-### Method 3: Manual Installation via Server
+### Method 4: Manual Installation via Server
 
 1. Extract the theme ZIP file to your XNAT webapp directory:
    ```bash
@@ -60,10 +71,18 @@ Use the provided deployment script:
      https://your-xnat.org/xapi/siteConfig/theme
    ```
 
+## Theme Features
+
+All themes in this collection:
+- **Preserve the XNAT banner** - The XNAT logo and header section remain untouched
+- **Color-only modifications** - No layout or structural changes to ensure compatibility
+- **Standard XNAT navigation** - Maintains horizontal navigation bar with themed colors
+- **Fully compatible** - Works with existing XNAT installations without conflicts
+
 ## Theme Structure
 
 Each theme package contains:
-- `css/theme.css` - Main theme stylesheet
+- `css/theme.css` - Main theme stylesheet with color-only modifications
 - `theme.properties` - Theme metadata and configuration
 
 ## Customization
