@@ -146,19 +146,19 @@ body,
    XNAT HEADER AND NAVIGATION COLORS
    ============================================================================= */
 
-/* Main header */
-#header,
+/* IMPORTANT: Banner/header section preserved - no styling applied to #header */
+/* This preserves the XNAT logo banner section as-is */
+
+/* Navigation bar only - excludes header/banner */
 .xnat-nav.navbar {
     background-color: var(--theme-primary) !important;
     border-color: var(--theme-secondary) !important;
 }
 
-#header a,
 .xnat-nav.navbar a {
     color: white !important;
 }
 
-#header a:hover,
 .xnat-nav.navbar a:hover {
     color: var(--theme-accent) !important;
 }
@@ -479,15 +479,13 @@ th {
     color: initial !important;
 }
 
-/* Conservative header styling - preserve gradients */
-#header a,
+/* Conservative navbar styling - preserve header/banner section */
 .xnat-nav.navbar a,
 .navbar a,
 .navbar-nav > li > a {
     color: var(--theme-text) !important;
 }
 
-#header a:hover,
 .xnat-nav.navbar a:hover,
 .navbar a:hover,
 .navbar-nav > li > a:hover {
