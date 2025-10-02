@@ -55,7 +55,7 @@ update_theme_colors() {
     cat > "$template_file" << 'TEMPLATE'
 /**
  * THEME_NAME Theme for XNAT - Color-only modifications
- * Preserves existing XNAT styling while applying theme-specific colors
+ * Preserves existing XNAT layout and styling while applying theme-specific colors
  */
 
 /* =============================================================================
@@ -65,12 +65,12 @@ update_theme_colors() {
 :root {
     /* Primary theme colors */
     --theme-primary: PRIMARY_COLOR;
-    --theme-secondary: SECONDARY_COLOR; 
+    --theme-secondary: SECONDARY_COLOR;
     --theme-accent: ACCENT_COLOR;
     --theme-background: BACKGROUND_COLOR;
     --theme-border: BORDER_COLOR;
     --theme-text: TEXT_COLOR;
-    
+
     /* XNAT CSS Variable Overrides */
     --XNAT-blue-500: PRIMARY_COLOR !important;
     --XNAT-blue-600: SECONDARY_COLOR !important;
@@ -99,13 +99,28 @@ body,
 
 /* Only target key content areas to preserve existing styling */
 .panel-body,
-.content,
 .main-content,
 .page-content,
 .modal-body,
 .tab-pane {
     background-color: var(--theme-background) !important;
     color: var(--theme-text) !important;
+}
+
+/* Explicitly preserve YUI and pad classes - DO NOT STYLE */
+.yui-nav,
+.yui-content,
+.yui-navset,
+.yui-dt,
+.yui-panel,
+.yui-dialog,
+.yuimenubar,
+.yuimenubaritem,
+.pad,
+[class*="yui-nav"],
+[class*="yui-content"],
+[class*="pad"] {
+    /* Intentionally empty - preserve original XNAT styling */
 }
 
 /* Specific overrides for main content areas only */
@@ -266,69 +281,16 @@ select:focus {
 }
 
 /* =============================================================================
-   YUI FRAMEWORK COLORS
+   YUI FRAMEWORK COLORS (SELECTIVE - AVOID NAV AND CONTENT)
    ============================================================================= */
 
-/* YUI Navigation Sets */
-.yui-navset .yui-nav li.selected a,
-.yui-navset .yui-nav li.selected a:focus,
-.yui-navset .yui-nav li.selected a:hover {
-    background-color: var(--theme-primary) !important;
-    color: white !important;
-}
+/* YUI Navigation Sets - REMOVED to preserve original styling */
 
-.yui-navset .yui-nav li a {
-    color: var(--theme-text) !important;
-}
+/* YUI Data Tables - REMOVED to preserve original styling */
 
-.yui-navset .yui-nav li a:hover {
-    background-color: var(--theme-background) !important;
-    color: var(--theme-primary) !important;
-}
+/* YUI Dialogs - REMOVED to preserve original styling */
 
-/* YUI Data Tables */
-.yui-dt table {
-    border-color: var(--theme-border) !important;
-}
-
-.yui-dt-odd {
-    background-color: var(--theme-background) !important;
-}
-
-.yui-dt th,
-.yui-dt thead th {
-    background-color: var(--theme-primary) !important;
-    color: white !important;
-    border-color: var(--theme-secondary) !important;
-}
-
-.yui-dt-selected {
-    background-color: var(--theme-accent) !important;
-}
-
-/* YUI Dialogs */
-.yui-panel .hd {
-    background-color: var(--theme-primary) !important;
-    color: white !important;
-}
-
-.yui-dialog .ft {
-    background-color: var(--theme-background) !important;
-    border-color: var(--theme-border) !important;
-}
-
-/* YUI Menus */
-.yuimenubar {
-    background-color: var(--theme-primary) !important;
-}
-
-.yuimenubaritem {
-    color: white !important;
-}
-
-.yuimenubaritem:hover {
-    background-color: var(--theme-secondary) !important;
-}
+/* YUI Menus - REMOVED to preserve original styling */
 
 /* =============================================================================
    ALERT AND MESSAGE COLORS
@@ -355,8 +317,16 @@ tr:nth-child(even) {
     background-color: var(--theme-background) !important;
 }
 
-tr:hover {
+tr:hover,
+.xnat-table tr.highlight:hover,
+.xnat-table.highlight tr:hover,
+.xnat-table.striped.highlight tr:hover {
     background-color: var(--theme-accent) !important;
+}
+
+#main_nav ul.nav table.data-table tr:hover,
+#main_nav ul.nav table.data-table .item:hover {
+    background: var(--theme-accent) !important;
 }
 
 /* =============================================================================
@@ -400,6 +370,57 @@ hr {
     background-color: var(--theme-background) !important;
     border-color: var(--theme-border) !important;
 }
+
+/* =============================================================================
+   NAVIGATION COLOR OVERRIDES
+   ============================================================================= */
+
+/* Main navigation - color only */
+#main_nav {
+    background-color: var(--theme-primary) !important;
+    border-color: var(--theme-secondary) !important;
+}
+
+#main_nav ul.nav > li > a {
+    color: white !important;
+}
+
+#main_nav ul.nav > li > a:hover,
+#main_nav ul.nav > li.active > a {
+    background-color: var(--theme-secondary) !important;
+}
+
+#main_nav ul.nav li li a:hover {
+    background-color: var(--theme-accent) !important;
+}
+
+#main_nav ul.nav li li.active,
+#main_nav ul.nav li li.active > a,
+#main_nav ul.nav li li.active > a:hover {
+    background-color: var(--theme-accent) !important;
+}
+
+/* Actions menu color enhancements */
+#actionsMenu li a:hover,
+#actionsMenu li.yuimenuitem-hassubmenu > a:hover {
+    background-color: var(--theme-accent) !important;
+}
+
+#actionsMenu > .bd > .first-of-type a {
+    background: var(--theme-primary) !important;
+}
+
+/* Accordion and widget colors */
+body #accordion h3.active,
+div.download-column h3 {
+    background: var(--theme-primary) !important;
+    border-color: var(--theme-primary) !important;
+}
+
+/* Container title colors */
+div.containerTitle.withColor {
+    background: var(--theme-primary) !important;
+}
 TEMPLATE
 
     # Capitalize first letter of theme name
@@ -437,13 +458,25 @@ body,
 button.btn-primary,
 .xnat-nav-tabs li.tab.active > a,
 .panel-default .panel-heading,
-.yui-panel .hd,
-.yui-navset .yui-nav li.selected a,
-.yuimenubar,
-th,
-.yui-dt th,
-.yui-dt thead th {
+th {
     color: white !important;
+}
+
+/* EXCLUDE YUI elements from dark theme overrides */
+.yui-nav,
+.yui-content, 
+.yui-navset,
+.yui-dt,
+.yui-panel,
+.yui-dialog,
+.yuimenubar,
+.yuimenubaritem,
+.pad,
+[class*="yui-nav"],
+[class*="yui-content"],
+[class*="pad"] {
+    background-color: initial !important;
+    color: initial !important;
 }
 
 /* Conservative header styling - preserve gradients */
